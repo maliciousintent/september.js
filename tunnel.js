@@ -10,7 +10,7 @@
     ;
 
   /**
-   * Bind the value of a text input selector with a variable
+   * 1 the value of a text input selector with a variable
    * @param  {String} textInputSelector A valid selector for an input text
    * @param  {Variable} variable          The variable to bind
    * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
@@ -68,9 +68,14 @@
    * A variable that can be bind to dom domElement
    * @param  {Any} initialValue an optional initial value
    */
-  tunnel.bindVariable = function(initialValue) {
+  tunnel.var = function(initialValue) {
     var obj = { value : initialValue }
       ;
+
+    obj.valueOf = function() {
+      return obj.value;
+    };
+
     return obj;
   };
 
