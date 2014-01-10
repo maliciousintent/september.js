@@ -66,6 +66,106 @@
     });
   };
 
+
+  /**
+   * binds the value of checkboxes to a variable. Note that if variable.value is not an object the variable will be 
+   * setted to {}
+   * @param  {String} textInputSelector A valid checkbox name
+   * @param  {Variable} variable          The variable to bind
+   * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
+   */
+  tunnel.checkboxBinding = function (checkboxName, variable, callBkFn) {
+    var observer
+      , domElements = document.querySelectorAll('input[type="checkbox"][name="' + checkboxName + '"]')
+      ;
+
+    if (!domElements) return false;
+  
+    if ('[object Object]' !== Object.prototype.toString.call(variable.value)) {
+      variable.value = {};
+    }
+
+    callBkFn = callBkFn || noopFn;
+    
+    domElements = Array.prototype.slice.call(domElements);
+
+    domElements.forEach(function (checkbox) {
+      var value = checkbox.value
+        , checked = checkbox.checked
+        ;
+
+      variable.value[value] = checked;
+
+      checkbox.addEventListener('change', function() {
+        var value = checkbox.value
+          , checked = checkbox.checked
+          ;
+
+        variable.value[value] = checked;
+        callBkFn(variable);
+      });
+
+      observer = new PathObserver(variable, 'value.' + value);
+      observer.open(function(newValue) {
+        checkbox.checked = newValue;
+        callBkFn(variable);
+      });
+
+    });
+  };
+
+
+  /**
+   * binds the value of radio to a variable. Note that if variable.value is not an object the variable will be 
+   * setted to {}
+   * @param  {String} textInputSelector A valid radio name
+   * @param  {Variable} variable          The variable to bind
+   * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
+   */
+  tunnel.radioBinding = function (radioName, variable, callBkFn) {
+    var observer
+      , domElements = document.querySelectorAll('input[type="radio"][name="' + radioName + '"]')
+      ;
+
+    if (!domElements) return false;
+  
+    if ('[object Object]' !== Object.prototype.toString.call(variable.value)) {
+      variable.value = {};
+    }
+
+    callBkFn = callBkFn || noopFn;
+    
+    domElements = Array.prototype.slice.call(domElements);
+    domElements.forEach(function (radio) {
+      var value = radio.value
+        , checked = radio.checked
+        ;
+
+      variable.value[value] = checked;
+      
+      radio.addEventListener('change', function() {
+        var value = radio.value
+          , checked = radio.checked
+          ;
+
+        // We should set to false all entries to avoid any problem
+        Object.keys( variable.value ).forEach(function( key ) {
+          variable.value[key] = false;
+        });
+
+        variable.value[value] = checked;
+        callBkFn(variable);
+      });
+
+      observer = new PathObserver(variable, 'value.' + value);
+      observer.open(function(newValue) {
+        radio.checked = newValue;
+        callBkFn(variable);
+      });
+
+    });
+  };
+
   /**
    * Bind the content of an element (innerHTML) with a variable
    * @param  {String} domSelector A valid selector for a dom item
