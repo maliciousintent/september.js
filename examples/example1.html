@@ -1,13 +1,17 @@
 <html>
   <head></head>
   <body>
-    <input type="text" id="inputText" />
-    <p>Hai scritto: <span id='result'></span></p>
+    <input type="text" id="inputText" class="inputText" />
+    <input type="text" id="inputText2" class="inputText" />
+
+    <p>Write! <span id='result'></span></p>
+    <textarea id="textarea"></textarea>
     <script type="text/javascript" src="lib/observe.js"></script>
     <script type="text/javascript" src="../tunnel.js"></script>
     <script type="text/javascript">
       var temporary = tunnel.var();
-      tunnel.textInputBinding('#inputText', temporary);
+      tunnel.textInputBindingAll('.inputText', temporary);
+      tunnel.textInputBindingAll('#textarea', temporary);
       tunnel.domBinding('#result', temporary);
 
       // TODO: move them in another file

@@ -7,17 +7,20 @@
 
   var tunnel = {}
     , noopFn = function(){}
+    , _inputBindingHelper
     ;
 
+
   /**
-   * 1 the value of a text input selector with a variable
-   * @param  {String} textInputSelector A valid selector for an input text
-   * @param  {Variable} variable          The variable to bind
-   * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
+   * An helper function
+   * @param  {DOM Element} domElement the element to bind
+   * @param  {Tunnel Var} variable   the var to bind
+   * @param  {String} eventName  The dom event
+   * @param  {String} attrName   the attribute of the dom
+   * @param  {Function} callBkFn   An optional callback function that is inovked when something changes
    */
-  tunnel.textInputBinding = function (textInputSelector, variable, callBkFn) {
-    var domElement = document.querySelector(textInputSelector)
-      , observer
+  _inputBindingHelper = function(domElement, variable, eventName, attrName, callBkFn) {
+    var observer
       ;
 
     if (!domElement) return false;
@@ -27,13 +30,39 @@
     // bind the variable to the input
     observer = new PathObserver(variable, 'value');
     observer.open(function(newValue) {
-      domElement.value = newValue;
+      domElement[attrName] = newValue;
       callBkFn(newValue);
     });
 
     domElement.addEventListener('input', function() {
-      variable.value = domElement.value;
+      variable.value = domElement[attrName];
       callBkFn();
+    });
+  };
+
+  /**
+   * binds the value of a text input or textarea with a variable
+   * @param  {String} textInputSelector A valid selector for an input text (the function will take just the first one)
+   * @param  {Variable} variable          The variable to bind
+   * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
+   */
+  tunnel.textInputBinding = function (textInputSelector, variable, callBkFn) {
+    var domElement = document.querySelector(textInputSelector)
+      ;
+    _inputBindingHelper(domElement, variable, 'input', 'value', callBkFn);
+  };
+
+  /**
+   * binds the value of a text input or textarea with a variable
+   * @param  {String} textInputSelector A valid selector for an input text
+   * @param  {Variable} variable          The variable to bind
+   * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
+   */
+  tunnel.textInputBindingAll = function (textInputSelector, variable, callBkFn) {
+    var domElements = Array.prototype.slice.call(document.querySelectorAll(textInputSelector))
+      ;
+    domElements.forEach(function (domElement) {
+      _inputBindingHelper(domElement, variable, 'input', 'value', callBkFn);
     });
   };
 
