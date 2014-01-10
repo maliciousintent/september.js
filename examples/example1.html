@@ -34,12 +34,16 @@
     <p><input type="radio" name="radio2" value="two" /> Orange </p>
     <p><input type="radio" name="radio2" value="three" /> Pineapple </p>
 
+    <p>Radio values <span id="radioResults"></span></p>
+
     <script type="text/javascript" src="lib/observe.js"></script>
     <script type="text/javascript" src="../tunnel.js"></script>
     <script type="text/javascript">
       var temporaryText = tunnel.var()
         , temporaryCheck = tunnel.var()
         , temporaryRadio = tunnel.var()
+        , tmp = tunnel.var({one: false, two: false, three: false});
+        ;
 
       // text
       tunnel.textInputBindingAll('.inputText', temporaryText);
@@ -53,6 +57,13 @@
       // radio
       tunnel.radioBinding('radio1', temporaryRadio);
       tunnel.radioBinding('radio2', temporaryRadio);
+      tunnel.domBinding('#radioResults', temporaryRadio, function(element) {
+        var text = "";
+        Object.keys(element).forEach(function(key) {
+          text += "<br />La radio " + key + " vale " + element[key] + "<br />";
+        });
+        return text;
+      });
     </script>
   </body>
 </html>

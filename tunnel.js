@@ -1,5 +1,5 @@
 /*jshint laxcomma:true, browser:true, jquery:true, eqnull:true */
-/*global PathObserver:true, Platform:true */
+/*global PathObserver:true, Platform:true, ObjectObserver:true, console:true */
 
 'use strict';
 
@@ -7,9 +7,18 @@
 
   var tunnel = {}
     , noopFn = function(){}
+    , identityFn = function(el){ return el; }
     , _inputBindingHelper
+    , _isObject
     ;
 
+  _isObject = function (element) {
+    if ('[object Object]' === Object.prototype.toString.call(element)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   /**
    * An helper function
@@ -81,7 +90,7 @@
 
     if (!domElements) return false;
   
-    if ('[object Object]' !== Object.prototype.toString.call(variable.value)) {
+    if (_isObject(variable)) {
       variable.value = {};
     }
 
@@ -101,6 +110,10 @@
           , checked = checkbox.checked
           ;
 
+        if (!_isObject(variable.value)) {
+          console.log('You should not change the variable structure of a radio bind..operation aborted');
+          return;
+        }
         variable.value[value] = checked;
         callBkFn(variable);
       });
@@ -129,7 +142,7 @@
 
     if (!domElements) return false;
   
-    if ('[object Object]' !== Object.prototype.toString.call(variable.value)) {
+    if (!_isObject(variable.value)) {
       variable.value = {};
     }
 
@@ -148,6 +161,10 @@
           , checked = radio.checked
           ;
 
+        if (!_isObject(variable.value)) {
+          console.log('You should not change the variable structure of a checkbox bind..operation aborted');
+          return;
+        }
         // We should set to false all entries to avoid any problem
         Object.keys( variable.value ).forEach(function( key ) {
           variable.value[key] = false;
@@ -171,8 +188,9 @@
    * @param  {String} domSelector A valid selector for a dom item
    * @param  {Variable} variable          The variable to bind
    * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
+   * @param  {Function} transformFn       An optional function that is used to transform the value of the variable before injecting the content in the dom element
    */
-  tunnel.domBinding = function (domSelector, variable, callBkFn) {
+  tunnel.domBinding = function (domSelector, variable, transformFn, callBkFn) {
     var domElement = document.querySelector(domSelector)
       , observer
       ;
@@ -180,14 +198,19 @@
     if (!domElement) return false;
 
     callBkFn = callBkFn || noopFn;
+    transformFn = transformFn || identityFn;
     
+    if (_isObject(variable.value)) {
+      observer = new ObjectObserver(variable.value);
+    } else {
+      observer = new PathObserver(variable, 'value');
+    }
     // bind the variable to the input
-    observer = new PathObserver(variable, 'value');
+    
     observer.open(function(newValue) {
-      domElement.innerHTML = newValue;
+      domElement.innerHTML = transformFn(variable.value);
       callBkFn(newValue);
     });
-
   };
 
   //for browsers that don't support Object.observer
