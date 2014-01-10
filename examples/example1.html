@@ -13,23 +13,6 @@
       tunnel.textInputBindingAll('.inputText', temporary);
       tunnel.textInputBindingAll('#textarea', temporary);
       tunnel.domBinding('#result', temporary);
-
-      // TODO: move them in another file
-      // basic operators test
-      var str1 = tunnel.var('str1');
-      var str2 = tunnel.var('str2');
-      var int1 = tunnel.var(1);
-      var int2 = tunnel.var(2);
-
-      console.log("add two strings " + (str1+str2));
-      console.log("add string with int " + (str1+int1));
-      console.log("add int with string " + (int1+str1));
-      console.log("add int with int " + (int1+int2));
-
-      // other operators
-      console.log("subtract int with int " + (int1-int2));
-      console.log("multiply int with int " + (int1*int2));
-      console.log("divide int with int " + (int1/int2));
     </script>
   </body>
 </html>
