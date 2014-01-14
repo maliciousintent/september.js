@@ -64,6 +64,7 @@ This method allows to bind a variable to a set of checkboxes
 tunnel.checkboxBinding(checkboxName, variable, callBkFn)
 ```
 Parameters:
+
 * **checkboxName**: the name of the checkboxes
 * **variable**: a tunnel.js variable
 * **callBkFn(optional)**: an optional function that is called every time the value changes
@@ -77,13 +78,13 @@ tunnel.checkboxBinding('check', varChecks);
 ### Note
 * if the passed tunnel.js variable contains an object-like value the method will merge the old content with the items that are connected to checkboxes otherwise the variable will be erased.
 
-* SUppose that we have four checkboxes with the following values: o,t,tr,fo (o and t are checked). The variable will contain an object with four entries: 
+* Suppose that we have four checkboxes with the following values: o,t,tr,fo (o and t are checked). The variable will contain an object with four entries: 
 ```json
 {
-    'o':true,
-    't':true,
-    'tr':false,
-    'fo':false
+    "o":true,
+    "t":true,
+    "tr":false,
+    "fo":false
 }
 ```
 
@@ -94,9 +95,23 @@ This method allows to bind a variable to a set of radios
 tunnel.radioBinding(radioName, variable, callBkFn)
 ```
 Parameters:
+
 * **radioName**: the name of the radio
 * **variable**: a tunnel.js variable
 * **callBkFn(optional)**: an optional function that is called every time the value changes
+
+### Note
+* if the passed tunnel.js variable contains an object-like value the method will merge the old content with the items that are connected to checkboxes otherwise the variable will be erased.
+
+* Suppose that we have four checkboxes with the following values: o,t,tr,fo (o is checked). The variable will contain an object with four entries: 
+```json
+{
+    "o":true,
+    "t":false,
+    "tr":false,
+    "fo":false
+}
+```
 
 ### Usage
 ```Javascript
