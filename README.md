@@ -1,24 +1,24 @@
-# Tunnel.js
+# September.js
 
 # Motivations
-Here in Plasticpanda we design and develop web applications. Sometimes we use frameworks like React, Angular or Polymer.js but for small applications the required boilerplate code is simply too much. Frameworks offer some usefull mechanisms like Two Way Binding. The purpose of Tunnel.js is to offer a simple interface that allows developer to create two ways bindings between DOM elements and Javascript variables.
+Here in Plasticpanda we design and develop web applications. Sometimes we use frameworks like React, Angular or Polymer.js but for small applications the required boilerplate code is simply too much. Frameworks offer some usefull mechanisms like Two Way Binding. The purpose of september.js is to offer a simple interface that allows developer to create two ways bindings between DOM elements and Javascript variables.
 
 
 # Usage
-Simply add Observe.js and Tunnel.js to your project
+Simply add Observe.js and september.js to your project
 ```Html
 <script type="text/javascript" src="path/to/observe.js"></script>
-<script type="text/javascript" src="path/to/tunnel.js"></script>
+<script type="text/javascript" src="path/to/september.js"></script>
 ```
 AMD support will come soon!
 
 
 # Variables
-Tunnel.js uses tunnels-variables. Developers can instance these variables in the following way:
+september.js uses septembers-variables. Developers can instance these variables in the following way:
 ```Javascript
-var stringVar = tunnel.var('string');
-var intVar = tunnel.var(1);
-var floatVar = tunnel.var(1.2);
+var stringVar = september.var('string');
+var intVar = september.var(1);
+var floatVar = september.var(1.2);
 ```
 
 These variables support operators like any other javascript variable:
@@ -33,23 +33,23 @@ console.log(stringVar.value); // 'string'
 ```
 
 # Bindings
-At the current stage tunnel.js supports the following DOM elements: input text (or text like: number, email...), textarea, checkboxes and radios
+At the current stage september.js supports the following DOM elements: input text (or text like: number, email...), textarea, checkboxes and radios
 
 ## textInputBinding
 This method allows to bind a variable to the value of an input-text (or text-like) or textarea
 
 ```Javascript
-tunnel.textInputBinding(textInputSelector, variable, callBkFn)
+september.textInputBinding(textInputSelector, variable, callBkFn)
 ```
 Parameters:
 * **textInputSelector**: a css selector
-* **variable**: a tunnel.js variable
+* **variable**: a september.js variable
 * **callBkFn(optional)**: an optional function that is called every time the value changes
 
 ### Usage
 ```Javascript
-var varText = tunnel.var('initial text');
-tunnel.textInputBindingAll('.inputText', varText);
+var varText = september.var('initial text');
+september.textInputBindingAll('.inputText', varText);
 ```
 
 ### Note
@@ -61,22 +61,22 @@ While ```textInputBinding``` binds the variable with the very first element retr
 This method allows to bind a variable to a set of checkboxes
 
 ```Javascript
-tunnel.checkboxBinding(checkboxName, variable, callBkFn)
+september.checkboxBinding(checkboxName, variable, callBkFn)
 ```
 Parameters:
 
 * **checkboxName**: the name of the checkboxes
-* **variable**: a tunnel.js variable
+* **variable**: a september.js variable
 * **callBkFn(optional)**: an optional function that is called every time the value changes
 
 ### Usage
 ```Javascript
-var varChecks = tunnel.var();
-tunnel.checkboxBinding('check', varChecks);
+var varChecks = september.var();
+september.checkboxBinding('check', varChecks);
 ```
 
 ### Note
-* if the passed tunnel.js variable contains an object-like value the method will merge the old content with the items that are connected to checkboxes otherwise the variable will be erased.
+* if the passed september.js variable contains an object-like value the method will merge the old content with the items that are connected to checkboxes otherwise the variable will be erased.
 
 * Suppose that we have four checkboxes with the following values: o,t,tr,fo (o and t are checked). The variable will contain an object with four entries: 
 ```json
@@ -92,16 +92,16 @@ tunnel.checkboxBinding('check', varChecks);
 This method allows to bind a variable to a set of radios
 
 ```Javascript
-tunnel.radioBinding(radioName, variable, callBkFn)
+september.radioBinding(radioName, variable, callBkFn)
 ```
 Parameters:
 
 * **radioName**: the name of the radio
-* **variable**: a tunnel.js variable
+* **variable**: a september.js variable
 * **callBkFn(optional)**: an optional function that is called every time the value changes
 
 ### Note
-* if the passed tunnel.js variable contains an object-like value the method will merge the old content with the items that are connected to radios otherwise the variable will be erased.
+* if the passed september.js variable contains an object-like value the method will merge the old content with the items that are connected to radios otherwise the variable will be erased.
 
 * Suppose that we have four radios with the following values: o,t,tr,fo (o is checked). The variable will contain an object with four entries: 
 ```json
@@ -115,8 +115,8 @@ Parameters:
 
 ### Usage
 ```Javascript
-var varRadios = tunnel.var();
-tunnel.radioBinding('radio', varRadios);
+var varRadios = september.var();
+september.radioBinding('radio', varRadios);
 ```
 
 
@@ -124,13 +124,13 @@ tunnel.radioBinding('radio', varRadios);
 This method allows to bind a variable to the value (innerHTML) of a DOM element. The connectio is one-way.
 
 ```Javascript
-tunnel.domBinding(domSelector, variable, transformFn, callBkFn)
+september.domBinding(domSelector, variable, transformFn, callBkFn)
 ```
 Parameters:
 
 * **domSelector**: a css selector
-* **variable**: a tunnel.js variable
-* **transformFn(optional)**: an optional function that is called every tunnel.js updates the DOM element. It is used to transform the variable content in something else
+* **variable**: a september.js variable
+* **transformFn(optional)**: an optional function that is called every september.js updates the DOM element. It is used to transform the variable content in something else
 * **callBkFn(optional)**: an optional function that is called every time the value changes
 
 ### Usage
@@ -140,7 +140,7 @@ var users
   , template = Handlebars.compile(source)
   ;
   
-users = tunnel.var([
+users = september.var([
     {
       'username': 'myUser',
       'first_name': 'my',
@@ -148,7 +148,7 @@ users = tunnel.var([
     }
 ]);  
   
-tunnel.domBinding('#usersList', users, function(users) {
+september.domBinding('#usersList', users, function(users) {
    return template(users);
 });
 ```
@@ -156,7 +156,7 @@ tunnel.domBinding('#usersList', users, function(users) {
 
 
 # Behind the scenes
-Tunnel.js uses DOM events and the [Polymer Observe.js library](https://raw.github.com/Polymer/observe-js)
+september.js uses DOM events and the [Polymer Observe.js library](https://raw.github.com/Polymer/observe-js)
 
 
 

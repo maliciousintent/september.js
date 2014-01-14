@@ -5,7 +5,7 @@
 
 (function(global){
 
-  var tunnel = {}
+  var september = {}
     , noopFn = function(){}
     , identityFn = function(el){ return el; }
     , _inputBindingHelper
@@ -18,12 +18,12 @@
     } else {
       return false;
     }
-  }
+  };
 
   /**
    * An helper function
    * @param  {DOM Element} domElement the element to bind
-   * @param  {Tunnel Var} variable   the var to bind
+   * @param  {september Var} variable   the var to bind
    * @param  {String} eventName  The dom event
    * @param  {String} attrName   the attribute of the dom
    * @param  {Function} callBkFn   An optional callback function that is inovked when something changes
@@ -55,7 +55,7 @@
    * @param  {Variable} variable          The variable to bind
    * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
    */
-  tunnel.textInputBinding = function (textInputSelector, variable, callBkFn) {
+  september.textInputBinding = function (textInputSelector, variable, callBkFn) {
     var domElement = document.querySelector(textInputSelector)
       ;
     _inputBindingHelper(domElement, variable, 'input', 'value', callBkFn);
@@ -67,7 +67,7 @@
    * @param  {Variable} variable          The variable to bind
    * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
    */
-  tunnel.textInputBindingAll = function (textInputSelector, variable, callBkFn) {
+  september.textInputBindingAll = function (textInputSelector, variable, callBkFn) {
     var domElements = Array.prototype.slice.call(document.querySelectorAll(textInputSelector))
       ;
     domElements.forEach(function (domElement) {
@@ -83,7 +83,7 @@
    * @param  {Variable} variable          The variable to bind
    * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
    */
-  tunnel.checkboxBinding = function (checkboxName, variable, callBkFn) {
+  september.checkboxBinding = function (checkboxName, variable, callBkFn) {
     var observer
       , domElements = document.querySelectorAll('input[type="checkbox"][name="' + checkboxName + '"]')
       ;
@@ -135,7 +135,7 @@
    * @param  {Variable} variable          The variable to bind
    * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
    */
-  tunnel.radioBinding = function (radioName, variable, callBkFn) {
+  september.radioBinding = function (radioName, variable, callBkFn) {
     var observer
       , domElements = document.querySelectorAll('input[type="radio"][name="' + radioName + '"]')
       ;
@@ -190,7 +190,7 @@
    * @param  {Function} callBkFn          An optional callback function that is called when the variable changes
    * @param  {Function} transformFn       An optional function that is used to transform the value of the variable before injecting the content in the dom element
    */
-  tunnel.domBinding = function (domSelector, variable, transformFn, callBkFn) {
+  september.domBinding = function (domSelector, variable, transformFn, callBkFn) {
     var domElement = document.querySelector(domSelector)
       , observer
       ;
@@ -220,7 +220,7 @@
    * A variable that can be bind to dom domElement
    * @param  {Any} initialValue an optional initial value
    */
-  tunnel.var = function(initialValue) {
+  september.var = function(initialValue) {
     var obj = { value : initialValue }
       ;
 
@@ -232,6 +232,6 @@
   };
 
   // TODO: export as AMD?
-  global.tunnel = tunnel;
+  global.september = september;
 
 })(window);
