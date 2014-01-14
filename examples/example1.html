@@ -60,7 +60,7 @@
       tunnel.domBinding('#radioResults', temporaryRadio, function(element) {
         var text = "";
         Object.keys(element).forEach(function(key) {
-          text += "<br />La radio " + key + " vale " + element[key] + "<br />";
+          text += "<br />Radio " + key + " has value " + element[key] + "<br />";
         });
         return text;
       });
