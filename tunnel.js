@@ -90,7 +90,7 @@
 
     if (!domElements) return false;
   
-    if (_isObject(variable)) {
+    if (!_isObject(variable.value)) {
       variable.value = {};
     }
 
