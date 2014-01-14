@@ -101,9 +101,9 @@ Parameters:
 * **callBkFn(optional)**: an optional function that is called every time the value changes
 
 ### Note
-* if the passed tunnel.js variable contains an object-like value the method will merge the old content with the items that are connected to checkboxes otherwise the variable will be erased.
+* if the passed tunnel.js variable contains an object-like value the method will merge the old content with the items that are connected to radios otherwise the variable will be erased.
 
-* Suppose that we have four checkboxes with the following values: o,t,tr,fo (o is checked). The variable will contain an object with four entries: 
+* Suppose that we have four radios with the following values: o,t,tr,fo (o is checked). The variable will contain an object with four entries: 
 ```json
 {
     "o":true,
