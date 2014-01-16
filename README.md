@@ -1,7 +1,7 @@
 # September.js
 
 # Motivations
-Here in Plasticpanda we design and develop web applications. Sometimes we use frameworks like React, Angular or Polymer.js but for small applications the required boilerplate code is simply too much. Frameworks offer some usefull mechanisms like Two Way Binding. The purpose of september.js is to offer a simple interface that allows developer to create two ways bindings between DOM elements and Javascript variables.
+Here in Plasticpanda we design and develop web applications. Sometimes we use frameworks like React, Angular or Polymer.js but for small applications the required boilerplate code is simply too much. Frameworks offer some useful mechanisms like Two Way Binding. The purpose of september.js is to offer a simple interface that allows developers to create two ways bindings between DOM elements and Javascript variables.
 
 
 # Usage
@@ -10,7 +10,8 @@ Simply add Observe.js and september.js to your project
 <script type="text/javascript" src="path/to/observe.js"></script>
 <script type="text/javascript" src="path/to/september.js"></script>
 ```
-AMD support will come soon!
+
+You can also use [http://www.requirejs.org/](RequireJS)
 
 
 # Variables
@@ -53,7 +54,7 @@ september.textInputBindingAll('.inputText', varText);
 ```
 
 ### Note
-While ```textInputBinding``` binds the variable with the very first element retrieved using the textInputSelector, ```textInputBindingAll``` binds the variable with every item retrieved using the selector. Behind the scenes ```textInputBinding``` uses the ```document.querySelector``` method, while ```textInputBindingAll``` uses ```document.querySelectorAll```
+While ```textInputBinding``` binds the variable with the very first element retrieved using the textInputSelector, ```textInputBindingAll``` binds the variable with every retrieved item. Behind the scenes ```textInputBinding``` uses the ```document.querySelector``` method, while ```textInputBindingAll``` uses ```document.querySelectorAll```
 
 
 
@@ -65,7 +66,7 @@ september.checkboxBinding(checkboxName, variable, callBkFn)
 ```
 Parameters:
 
-* **checkboxName**: the name of the checkboxes
+* **checkboxName**: the checkboxes name
 * **variable**: a september.js variable
 * **callBkFn(optional)**: an optional function that is called every time the value changes
 
@@ -96,7 +97,7 @@ september.radioBinding(radioName, variable, callBkFn)
 ```
 Parameters:
 
-* **radioName**: the name of the radio
+* **radioName**: the radios name
 * **variable**: a september.js variable
 * **callBkFn(optional)**: an optional function that is called every time the value changes
 
@@ -121,7 +122,7 @@ september.radioBinding('radio', varRadios);
 
 
 ## domBinding
-This method allows to bind a variable to the value (innerHTML) of a DOM element. The connectio is one-way.
+This method allows to bind a variable to the value (innerHTML) of a DOM element. The connection is one-way.
 
 ```Javascript
 september.domBinding(domSelector, variable, transformFn, callBkFn)
@@ -162,4 +163,3 @@ september.js uses DOM events and the [Polymer Observe.js library](https://raw.gi
 
 # Todo
 * test! (maybe with a framework that automates tests across different browsers)
-* AMD Support
