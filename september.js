@@ -1,9 +1,8 @@
 /*jshint laxcomma:true, browser:true, jquery:true, eqnull:true */
-/*global PathObserver:true, Platform:true, ObjectObserver:true, console:true */
+/*global PathObserver:true, Platform:true, ObjectObserver:true, console:true, define:true */
 
-'use strict';
-
-(function(global){
+(function (exports) {
+  'use strict';
 
   var september = {}
     , noopFn = function(){}
@@ -231,7 +230,10 @@
     return obj;
   };
 
-  // TODO: export as AMD?
-  global.september = september;
+  if (typeof exports.define === 'function' && exports.define.amd) {
+    define('september', [], september);
+  } else {
+    exports.september = september;
+  }
 
-})(window);
+})(this);
